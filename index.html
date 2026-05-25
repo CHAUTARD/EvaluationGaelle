@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="fr" data-bs-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Évaluation Maternelle</title>
+  <link rel="stylesheet" href="asset/css/bootstrap.min.css">
+  <link rel="stylesheet" href="asset/css/style.css">
+</head>
+<body>
+
+  <!-- ======================================================
+       ÉCRAN 1 — ACCUEIL : liste des élèves par niveau
+       ====================================================== -->
+  <div id="screen-home" class="screen active">
+    <header class="app-bar">
+      <span class="app-bar-title">Évaluation Maternelle</span>
+      <button id="btn-darkmode" class="app-bar-btn" title="Mode sombre">🌙</button>
+      <button id="btn-settings" class="app-bar-btn" title="Paramètres">⚙️</button>
+    </header>
+    <nav id="tab-bar"></nav>
+    <div id="tab-content"></div>
+  </div>
+
+  <!-- ======================================================
+       ÉCRAN 2 — DÉTAIL ÉLÈVE : listes d'activités
+       ====================================================== -->
+  <div id="screen-eleve" class="screen">
+    <header class="app-bar">
+      <button id="btn-back-eleve" class="app-bar-btn" title="Retour">‹</button>
+      <span id="eleve-titre" class="app-bar-title">Élève</span>
+    </header>
+    <div id="eleve-content"></div>
+  </div>
+
+  <!-- ======================================================
+       ÉCRAN 3 — ÉVALUATION mot par mot
+       ====================================================== -->
+  <div id="screen-evaluation" class="screen">
+    <header class="app-bar">
+      <button id="btn-back-evaluation" class="app-bar-btn" title="Abandonner">‹</button>
+      <span id="evaluation-titre" class="app-bar-title">Évaluation</span>
+      <span id="eval-compteur" class="eval-compteur-header">1 / ?</span>
+    </header>
+    <div id="eval-info-bar" class="eval-info-bar"></div>
+    <div id="eval-zone" class="eval-zone">
+      <div id="eval-img-wrap" class="eval-img-wrap">
+        <img id="eval-img" src="" alt="">
+      </div>
+      <div id="eval-mot" class="eval-mot"></div>
+    </div>
+    <div class="eval-progress-bar-wrap">
+      <div id="eval-progress-bar" class="eval-progress-bar"></div>
+    </div>
+    <div class="eval-btn-bar">
+      <button id="btn-pas-reussi" class="eval-btn eval-btn-fail">
+        <span class="eval-btn-icon">✗</span><span>Pas réussi</span>
+      </button>
+      <button id="btn-reussi" class="eval-btn eval-btn-ok">
+        <span class="eval-btn-icon">✓</span><span>Réussi</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ======================================================
+       ÉCRAN 4 — RÉSULTATS
+       ====================================================== -->
+  <div id="screen-resultats" class="screen">
+    <header class="app-bar">
+      <span class="app-bar-title">Résultats</span>
+    </header>
+    <div id="resultats-score" class="resultats-score"></div>
+    <div id="resultats-liste" class="resultats-liste"></div>
+    <div class="resultats-footer">
+      <button id="btn-terminer" class="btn-terminer">Terminer</button>
+    </div>
+  </div>
+
+  <!-- ======================================================
+       ÉCRAN 5 — PARAMÈTRES
+       ====================================================== -->
+  <div id="screen-settings" class="screen">
+    <header class="app-bar">
+      <button id="btn-back-settings" class="app-bar-btn" title="Retour">‹</button>
+      <span class="app-bar-title">Paramètres</span>
+    </header>
+    <div class="screen-body">
+      <ul class="settings-list">
+        <li class="settings-item" id="settings-darkmode">
+          <span class="si-icon">🌙</span>
+          <span id="settings-darkmode-label">Mode sombre : désactivé</span>
+          <span class="si-arrow">›</span>
+        </li>
+        <li class="settings-item" id="settings-go-eleves">
+          <span class="si-icon">👥</span>
+          <span>Gérer les élèves</span>
+          <span class="si-arrow">›</span>
+        </li>
+        <li class="settings-item" id="settings-go-niveaux">
+          <span class="si-icon">📊</span>
+          <span>Gérer les niveaux</span>
+          <span class="si-arrow">›</span>
+        </li>
+        <li class="settings-item" id="settings-go-listes">
+          <span class="si-icon">📋</span>
+          <span>Gérer les listes</span>
+          <span class="si-arrow">›</span>
+        </li>
+        <li class="settings-item" id="settings-go-images">
+          <span class="si-icon">🖼️</span>
+          <span>Gérer les images</span>
+          <span class="si-arrow">›</span>
+        </li>
+        <li class="settings-item" id="settings-go-historique">
+          <span class="si-icon">🕒</span>
+          <span>Consulter l'historique</span>
+          <span class="si-arrow">›</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ======================================================
+       ÉCRAN 10 — HISTORIQUE DES SESSIONS
+       ====================================================== -->
+  <div id="screen-historique" class="screen">
+    <header class="app-bar">
+      <button id="btn-back-historique" class="app-bar-btn">‹</button>
+      <span class="app-bar-title">Historique des sessions</span>
+    </header>
+
+    <!-- Filtre par élève -->
+    <div class="histo-filter">
+      <select id="histo-filtre-eleve" class="form-select">
+        <option value="">Tous les élèves</option>
+      </select>
+    </div>
+
+    <!-- Liste des sessions -->
+    <div id="histo-list" class="histo-list"></div>
+  </div>
+
+  <!-- ======================================================
+       ÉCRAN 6 — ADMIN ÉLÈVES
+       ====================================================== -->
+  <div id="screen-admin-eleves" class="screen">
+    <header class="app-bar">
+      <button id="btn-back-admin-eleves" class="app-bar-btn">‹</button>
+      <span class="app-bar-title">Gestion des Élèves</span>
+      <button id="btn-add-eleve" class="app-bar-btn" title="Ajouter">＋</button>
+    </header>
+    <div id="admin-eleves-list" class="admin-list-container"></div>
+  </div>
+
+  <!-- ======================================================
+       ÉCRAN 7 — ADMIN NIVEAUX
+       ====================================================== -->
+  <div id="screen-admin-niveaux" class="screen">
+    <header class="app-bar">
+      <button id="btn-back-admin-niveaux" class="app-bar-btn">‹</button>
+      <span class="app-bar-title">Gestion des Niveaux</span>
+      <button id="btn-add-niveau" class="app-bar-btn" title="Ajouter">＋</button>
+    </header>
+    <div id="admin-niveaux-list" class="admin-list-container"></div>
+  </div>
+
+  <!-- ======================================================
+       ÉCRAN 8 — ADMIN LISTES
+       ====================================================== -->
+  <div id="screen-admin-listes" class="screen">
+    <header class="app-bar">
+      <button id="btn-back-admin-listes" class="app-bar-btn">‹</button>
+      <span class="app-bar-title">Gestion des Listes</span>
+      <button id="btn-add-liste" class="app-bar-btn" title="Ajouter">＋</button>
+    </header>
+    <div id="admin-listes-list" class="admin-list-container"></div>
+  </div>
+
+  <!-- ======================================================
+       ÉCRAN 9 — ADMIN MOTS (d'une liste)
+       ====================================================== -->
+  <div id="screen-admin-mots" class="screen">
+    <header class="app-bar">
+      <button id="btn-back-admin-mots" class="app-bar-btn">‹</button>
+      <span id="admin-mots-titre" class="app-bar-title">Mots</span>
+      <button id="btn-add-mot" class="app-bar-btn" title="Ajouter">＋</button>
+    </header>
+    <div id="admin-mots-list" class="admin-list-container"></div>
+  </div>
+
+
+  <!-- ======================================================
+       MODALE — Formulaire générique (ajout / modification)
+       ====================================================== -->
+  <div class="modal fade" id="modal-form" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modal-form-title">Formulaire</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body" id="modal-form-body"></div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+          <button type="button" class="btn btn-primary" id="btn-modal-save">Enregistrer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================
+       MODALE — Sélecteur d'image
+       ====================================================== -->
+  <div class="modal fade" id="modal-img-picker" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Choisir une image</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-2">
+          <div id="img-picker-grid" class="img-picker-grid"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================
+       MODALE — Confirmation suppression
+       ====================================================== -->
+  <div class="modal fade" id="modal-confirm" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Confirmer la suppression</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body" id="modal-confirm-msg">Êtes-vous sûr ?</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+          <button type="button" class="btn btn-danger" id="btn-confirm-ok">Supprimer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ======================================================
+       ÉCRAN — GESTION DES IMAGES
+       ====================================================== -->
+  <div id="screen-admin-images" class="screen">
+    <header class="app-bar">
+      <button id="btn-back-admin-images" class="app-bar-btn">‹</button>
+      <span class="app-bar-title">Gestion des Images</span>
+      <button id="btn-add-image" class="app-bar-btn" title="Ajouter une image">＋</button>
+    </header>
+    <div class="admin-img-info-bar">
+      <div class="admin-img-info-row">
+        <span class="admin-img-info-icon">📐</span>
+        <span><strong>Formats</strong> : JPEG, PNG, GIF, WebP, BMP, SVG</span>
+      </div>
+      <div class="admin-img-info-row">
+        <span class="admin-img-info-icon">🔄</span>
+        <span><strong>Redimensionnement auto</strong> : max 400 × 400 px conservant les proportions</span>
+      </div>
+      <div class="admin-img-info-row">
+        <span class="admin-img-info-icon">💾</span>
+        <span><strong>Stockage</strong> : JPEG 85 % — localStorage du navigateur (~5 Mo total)</span>
+      </div>
+      <div class="admin-img-info-row">
+        <span class="admin-img-info-icon">⚠️</span>
+        <span>Les images supprimées restent affichées dans les mots/listes déjà associés</span>
+      </div>
+    </div>
+    <div id="admin-images-content" class="admin-images-content"></div>
+    <input type="file" id="add-image-input" accept="image/*" style="display:none">
+  </div>
+
+  <!-- Input fichier caché pour l'import d'élèves -->
+  <input type="file" id="import-eleves-input" accept=".txt,.csv" style="display:none">
+
+  <script src="asset/js/jquery-3.7.1.min.js"></script>
+  <script src="asset/js/bootstrap.bundle.min.js"></script>
+  <script src="asset/js/app.js"></script>
+</body>
+</html>

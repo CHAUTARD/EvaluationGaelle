@@ -1,0 +1,1078 @@
+/* ============================================================
+   VARIABLES CSS — thème DeepPurple (Material 3)
+   ============================================================ */
+:root {
+  --primary:          #6750A4;
+  --primary-dark:     #4F378B;
+  --on-primary:       #FFFFFF;
+  --surface:          #FFFBFE;
+  --on-surface:       #1C1B1F;
+  --surface-variant:  #E7E0EC;
+  --outline:          #79747E;
+  --bg:               #F6F2F8;
+  --divider:          #E0E0E0;
+}
+
+[data-bs-theme="dark"] {
+  --primary:          #D0BCFF;
+  --primary-dark:     #B69DF8;
+  --on-primary:       #381E72;
+  --surface:          #1C1B1F;
+  --on-surface:       #E6E1E5;
+  --surface-variant:  #49454F;
+  --outline:          #938F99;
+  --bg:               #131218;
+  --divider:          #2D2D2D;
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Roboto', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--on-surface);
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* ============================================================
+   NAVIGATION ENTRE ÉCRANS
+   ============================================================ */
+.screen          { display: none; flex-direction: column; height: 100vh; }
+.screen.active   { display: flex; }
+
+/* ============================================================
+   APP BAR
+   ============================================================ */
+.app-bar {
+  background: var(--primary);
+  color: var(--on-primary);
+  display: flex;
+  align-items: center;
+  height: 56px;
+  padding: 0 4px 0 16px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(0,0,0,.25);
+  gap: 8px;
+}
+
+.app-bar-title {
+  font-family: 'Oswald', 'Roboto', system-ui, sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  flex: 1;
+}
+
+.app-bar-btn {
+  background: none;
+  border: none;
+  color: var(--on-primary);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  touch-action: manipulation;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+.app-bar-btn:hover { background: rgba(255,255,255,0.15); }
+
+/* ============================================================
+   TAB BAR (onglets par niveau)
+   ============================================================ */
+#tab-bar {
+  display: flex;
+  background: var(--primary);
+  flex-shrink: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+#tab-bar::-webkit-scrollbar { display: none; }
+
+.tab-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  touch-action: manipulation;
+  transition: border-color 0.2s, opacity 0.2s;
+  opacity: 0.7;
+}
+.tab-btn.active {
+  border-bottom-color: var(--on-primary);
+  opacity: 1;
+}
+.tab-btn:hover { opacity: 0.9; }
+
+.tab-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.tab-label {
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+/* ============================================================
+   CONTENU PRINCIPAL (liste élèves)
+   ============================================================ */
+#tab-content {
+  flex: 1;
+  overflow-y: auto;
+  background: var(--surface);
+}
+
+.empty-msg {
+  text-align: center;
+  padding: 60px 24px;
+  color: var(--outline);
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.eleve-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.eleve-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 16px;
+  cursor: pointer;
+  border-bottom: 1px solid var(--divider);
+  touch-action: manipulation;
+  transition: background 0.12s;
+  background: var(--surface);
+}
+.eleve-item:hover  { background: var(--surface-variant); }
+.eleve-item:last-child { border-bottom: none; }
+
+.eleve-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.eleve-initiale {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0,0,0,.3);
+}
+
+.eleve-nom {
+  font-size: 1.1rem;
+  flex: 1;
+}
+
+.eleve-chevron {
+  color: var(--outline);
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+/* ============================================================
+   ÉCRAN ÉLÈVE — liste des activités
+   ============================================================ */
+#screen-eleve .app-bar-title { font-size: 1.1rem; }
+
+#eleve-content {
+  flex: 1;
+  overflow-y: auto;
+  background: var(--bg);
+  padding: 8px;
+}
+
+.activite-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,0,0,.12);
+  touch-action: manipulation;
+  transition: box-shadow 0.15s, background 0.12s;
+}
+.activite-card:hover {
+  box-shadow: 0 3px 8px rgba(0,0,0,.18);
+  background: var(--surface-variant);
+}
+
+.activite-img-wrap {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: var(--surface-variant);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.activite-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.activite-img-placeholder {
+  font-size: 1.6rem;
+}
+
+.activite-info { flex: 1; }
+.activite-nom {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--on-surface);
+}
+.activite-type {
+  font-size: 0.8rem;
+  color: var(--outline);
+  margin-top: 2px;
+}
+
+.activite-arrow {
+  color: var(--outline);
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+/* ============================================================
+   ÉCRAN ÉVALUATION
+   ============================================================ */
+#screen-evaluation { background: var(--bg); }
+
+.eval-compteur-header {
+  font-size: 0.9rem;
+  opacity: 0.85;
+  margin-right: 4px;
+  white-space: nowrap;
+}
+
+.eval-info-bar {
+  background: var(--surface-variant);
+  padding: 6px 16px;
+  font-size: 0.85rem;
+  color: var(--outline);
+  text-align: center;
+  flex-shrink: 0;
+  min-height: 28px;
+  line-height: 1.5;
+}
+
+.eval-zone {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 10px 16px;
+  overflow: hidden;
+}
+
+.eval-img-wrap {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;     /* centrage vertical dans le wrapper */
+  justify-content: center; /* centrage horizontal dans le wrapper */
+}
+.eval-img-wrap img {
+  /*
+   * Carré uniforme centré.
+   * On calcule la taille en unités viewport (pas de %) pour contourner
+   * le bug de résolution de max-height:100% dans un flex enfant sans hauteur explicite.
+   *
+   * Overhead fixe portrait :  app-bar 56px + info-bar 30px + progress 6px
+   *                          + btn-bar 112px + padding zone 20px + mot+gap 70px = 294px
+   */
+  --eval-img-size: min(calc(100vw - 32px), calc(100vh - 294px));
+  width:  var(--eval-img-size);
+  height: var(--eval-img-size);
+  object-fit: cover;       /* remplit le carré, pas de bandes grises */
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,.18);
+}
+.eval-img-wrap img[src=""] { display: none; }
+
+.eval-mot {
+  flex-shrink: 0;     /* le mot garde sa taille naturelle */
+  font-size: 3.5rem;
+  font-weight: 700;
+  font-family: 'Oswald', system-ui, sans-serif;
+  color: var(--on-surface);
+  text-align: center;
+  line-height: 1.1;
+}
+
+/* Barre de progression */
+.eval-progress-bar-wrap {
+  height: 6px;
+  background: var(--surface-variant);
+  flex-shrink: 0;
+}
+.eval-progress-bar {
+  height: 100%;
+  background: var(--primary);
+  transition: width 0.3s ease;
+}
+
+/* Boutons Réussi / Pas réussi */
+.eval-btn-bar {
+  display: flex;
+  gap: 12px;
+  padding: 16px;
+  flex-shrink: 0;
+  background: var(--surface);
+}
+
+.eval-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: none;
+  border-radius: 12px;
+  padding: 16px 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  touch-action: manipulation;
+  min-height: 80px;
+  transition: transform 0.1s, opacity 0.1s;
+  color: #fff;
+}
+.eval-btn:active { transform: scale(0.96); opacity: 0.85; }
+
+.eval-btn-icon { font-size: 1.8rem; line-height: 1; }
+
+.eval-btn-fail { background: #e53935; }
+.eval-btn-fail:hover { background: #c62828; }
+
+.eval-btn-ok { background: #43a047; }
+.eval-btn-ok:hover { background: #2e7d32; }
+
+/* ============================================================
+   ÉCRAN RÉSULTATS
+   ============================================================ */
+#screen-resultats { background: var(--bg); }
+
+.resultats-score {
+  text-align: center;
+  padding: 24px 16px 16px;
+  flex-shrink: 0;
+}
+.resultats-score-chiffre {
+  font-size: 3rem;
+  font-weight: 700;
+  font-family: 'Oswald', system-ui, sans-serif;
+  color: var(--primary);
+}
+.resultats-score-label {
+  font-size: 1rem;
+  color: var(--outline);
+  margin-top: 4px;
+}
+
+.resultats-liste {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 8px;
+}
+
+.result-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--surface);
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.1);
+}
+
+.result-img-wrap {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: var(--surface-variant);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.result-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.result-mot { flex: 1; font-size: 1.1rem; font-weight: 600; }
+
+.result-badge {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+.result-badge.ok   { color: #43a047; }
+.result-badge.fail { color: #e53935; }
+
+.resultats-footer {
+  padding: 16px;
+  flex-shrink: 0;
+  background: var(--surface);
+}
+
+.btn-terminer {
+  width: 100%;
+  padding: 16px;
+  background: var(--primary);
+  color: var(--on-primary);
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: opacity 0.15s;
+}
+.btn-terminer:hover { opacity: 0.88; }
+
+/* ============================================================
+   PLACEHOLDER GÉNÉRIQUE
+   ============================================================ */
+.placeholder-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--outline);
+  font-size: 1rem;
+  text-align: center;
+  padding: 24px;
+}
+.placeholder-content .placeholder-icon { font-size: 3rem; }
+
+/* ============================================================
+   ÉCRAN PARAMÈTRES (placeholder)
+   ============================================================ */
+#screen-settings .screen-body {
+  flex: 1;
+  overflow-y: auto;
+  background: var(--surface);
+}
+
+.settings-list {
+  list-style: none;
+  padding: 8px 0;
+}
+
+.settings-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  cursor: pointer;
+  border-bottom: 1px solid var(--divider);
+  font-size: 1.05rem;
+  touch-action: manipulation;
+  transition: background 0.12s;
+}
+.settings-item:hover { background: var(--surface-variant); }
+.settings-item:last-child { border-bottom: none; }
+.settings-item .si-icon { font-size: 1.4rem; width: 28px; text-align: center; }
+.settings-item .si-arrow { margin-left: auto; color: var(--outline); font-size: 1.4rem; }
+
+/* ============================================================
+   ÉCRANS ADMIN (élèves / niveaux / listes / mots)
+   ============================================================ */
+.admin-list-container {
+  flex: 1;
+  overflow-y: auto;
+  background: var(--bg);
+  padding: 8px;
+}
+
+.admin-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--surface);
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-bottom: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.1);
+}
+
+.admin-item-thumb {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0,0,0,.3);
+  overflow: hidden;
+}
+.admin-item-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.admin-item-info { flex: 1; min-width: 0; }
+.admin-item-nom {
+  font-size: 1rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.admin-item-sub {
+  font-size: 0.8rem;
+  color: var(--outline);
+  margin-top: 2px;
+}
+
+.admin-item-actions { display: flex; gap: 4px; flex-shrink: 0; }
+.admin-action-btn {
+  background: none;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  touch-action: manipulation;
+  transition: background 0.12s;
+  color: var(--on-surface);
+}
+.admin-action-btn:hover { background: var(--surface-variant); }
+.admin-action-btn.del  { color: #e53935; }
+.admin-action-btn.edit { color: #1565c0; }
+.admin-action-btn.nav  { color: #6750A4; }
+
+.admin-empty {
+  text-align: center;
+  padding: 48px 24px;
+  color: var(--outline);
+  font-size: 1rem;
+}
+
+/* Pastille couleur niveau */
+.niveau-swatch {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  border: 2px solid rgba(0,0,0,.1);
+}
+
+/* ============================================================
+   ADMIN ÉLÈVES — EN-TÊTES DE NIVEAU
+   ============================================================ */
+
+/* Force une colonne unique : les en-têtes de niveau ne s'intègrent
+   pas bien dans une grille multi-colonnes */
+#admin-eleves-list {
+  display: block;
+}
+
+.admin-niveau-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--surface-variant);
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 6px;
+  margin-top: 10px;
+}
+.admin-niveau-header:first-child {
+  margin-top: 0;
+}
+
+.admin-niveau-nom {
+  flex: 1;
+  font-size: 1rem;
+  font-weight: 700;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.admin-niveau-count {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--outline);
+}
+
+.admin-empty-niveau {
+  font-size: 0.85rem;
+  color: var(--outline);
+  font-style: italic;
+  padding: 6px 14px 10px 70px;
+}
+
+.admin-action-btn.del-niveau { color: #e53935; }
+.admin-action-btn.import     { color: var(--primary); }
+
+/* ============================================================
+   MODALE IMAGE PICKER
+   ============================================================ */
+.img-picker-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 8px;
+}
+
+.img-picker-item {
+  aspect-ratio: 1;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 3px solid transparent;
+  transition: border-color 0.15s, transform 0.1s;
+}
+.img-picker-item:hover { border-color: var(--primary); transform: scale(1.05); }
+.img-picker-item.selected { border-color: var(--primary); }
+.img-picker-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+/* ============================================================
+   MODALE FORMULAIRE — aperçu image sélectionnée
+   ============================================================ */
+.form-img-preview {
+  width: 100%;
+  height: 120px;
+  border: 2px dashed var(--outline);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  overflow: hidden;
+  transition: border-color 0.15s;
+}
+.form-img-preview:hover { border-color: var(--primary); }
+.form-img-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.form-img-preview .img-placeholder-icon {
+  font-size: 2.5rem;
+  color: var(--outline);
+}
+
+/* Aperçu agrandi pour le formulaire mot (modal-lg) */
+.form-img-preview-large {
+  height: auto;
+  min-height: 120px;
+  max-height: 52vh;
+  padding: 10px;
+}
+.form-img-preview-large img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 48vh;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+/* ============================================================
+   ÉCRAN HISTORIQUE
+   ============================================================ */
+.histo-filter {
+  padding: 10px 12px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--divider);
+  flex-shrink: 0;
+}
+
+.histo-list {
+  flex: 1;
+  overflow-y: auto;
+  background: var(--bg);
+  padding: 8px;
+}
+
+.histo-card {
+  background: var(--surface);
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-bottom: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.1);
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.histo-score-badge {
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.histo-body { flex: 1; min-width: 0; }
+
+.histo-titre {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.histo-date {
+  font-size: 0.8rem;
+  color: var(--outline);
+  margin-bottom: 6px;
+}
+
+.histo-mots-ligne {
+  font-size: 0.82rem;
+  margin-top: 3px;
+  line-height: 1.5;
+}
+.histo-mots-ligne .label-ok   { color: #43a047; font-weight: 600; }
+.histo-mots-ligne .label-fail { color: #e53935; font-weight: 600; }
+.histo-mots-vide { color: var(--outline); font-style: italic; }
+
+.histo-del-btn {
+  background: none;
+  border: none;
+  color: var(--outline);
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  flex-shrink: 0;
+  align-self: flex-start;
+  touch-action: manipulation;
+  transition: color 0.12s;
+}
+.histo-del-btn:hover { color: #e53935; }
+
+/* ============================================================
+   ADMIN IMAGES
+   ============================================================ */
+.admin-img-info-bar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--divider);
+  padding: 10px 16px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.admin-img-info-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: var(--on-surface);
+  line-height: 1.4;
+}
+
+.admin-img-info-icon {
+  flex-shrink: 0;
+  width: 20px;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.admin-images-content {
+  flex: 1;
+  overflow-y: auto;
+  background: var(--bg);
+  padding: 12px;
+}
+
+.admin-img-section { margin-bottom: 24px; }
+
+.admin-img-section-title {
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 6px 0 8px;
+  border-bottom: 2px solid var(--primary);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  color: var(--on-surface);
+}
+
+.admin-img-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(88px, 1fr));
+  gap: 8px;
+}
+
+.admin-img-card {
+  background: var(--surface);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-img-thumb-wrap {
+  position: relative;
+  aspect-ratio: 1;
+  background: var(--surface-variant);
+  overflow: hidden;
+}
+.admin-img-thumb-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.admin-img-del-btn {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: rgba(0,0,0,.55);
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: manipulation;
+  transition: background 0.12s;
+}
+.admin-img-del-btn:hover { background: rgba(229,57,53,.85); }
+
+.admin-img-name {
+  font-size: 0.7rem;
+  color: var(--on-surface);
+  padding: 4px 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+}
+
+/* ============================================================
+   DARK MODE — OVERRIDES
+   ============================================================ */
+[data-bs-theme="dark"] .eleve-item { background: var(--surface); }
+[data-bs-theme="dark"] .eleve-item:hover { background: var(--surface-variant); }
+[data-bs-theme="dark"] #tab-content { background: var(--surface); }
+
+/* ============================================================
+   RESPONSIVE — TABLETTE PORTRAIT (≥ 600 px)
+   ============================================================ */
+@media (min-width: 600px) {
+
+  /* App bar plus haute */
+  .app-bar         { height: 64px; padding: 0 8px 0 20px; }
+  .app-bar-title   { font-size: 1.4rem; }
+  .app-bar-btn     { width: 52px; height: 52px; font-size: 1.5rem; }
+
+  /* Onglets plus confortables */
+  .tab-btn         { padding: 12px 28px; }
+  .tab-label       { font-size: 1.2rem; }
+  .tab-dot         { width: 14px; height: 14px; }
+
+  /* Liste élèves : grille 2 colonnes */
+  .eleve-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .eleve-item {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--divider);
+    border-right: none;
+  }
+  .eleve-item:nth-child(odd)  { border-right: 1px solid var(--divider); }
+  .eleve-avatar  { width: 56px; height: 56px; }
+  .eleve-initiale{ font-size: 1.4rem; }
+  .eleve-nom     { font-size: 1.2rem; }
+
+  /* Cartes activités : grille 2 colonnes */
+  #eleve-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-content: start;
+    gap: 10px;
+    padding: 12px;
+  }
+  .activite-card { margin-bottom: 0; }
+
+  /* Évaluation : plus grand */
+  .eval-mot        { font-size: 4.5rem; }
+  .eval-btn        { min-height: 96px; font-size: 1.1rem; padding: 20px 8px; }
+  .eval-btn-icon   { font-size: 2.2rem; }
+  .eval-btn-bar    { padding: 16px 24px; gap: 20px; }
+  /* app-bar 64px au lieu de 56px sur tablette → overhead 302px */
+  .eval-img-wrap img {
+    --eval-img-size: min(calc(100vw - 32px), calc(100vh - 302px));
+  }
+
+  /* Résultats : grille 2 colonnes */
+  .resultats-liste {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding: 8px 12px;
+  }
+  .result-card     { margin-bottom: 0; }
+  .resultats-score { padding: 28px 16px 20px; }
+  .resultats-score-chiffre { font-size: 3.5rem; }
+  .resultats-footer{ padding: 16px 24px; }
+  .btn-terminer    { max-width: 400px; margin: 0 auto; display: block; }
+
+  /* Admin : grille 2 colonnes */
+  .admin-list-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-content: start;
+    gap: 8px;
+    padding: 12px;
+  }
+  .admin-item      { margin-bottom: 0; }
+
+  /* Historique */
+  .histo-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding: 12px;
+  }
+  .histo-card      { margin-bottom: 0; }
+  .histo-filter    { padding: 12px 16px; }
+
+  /* Paramètres */
+  .settings-list   { max-width: 600px; margin: 0 auto; }
+  .settings-item   { padding: 18px 24px; font-size: 1.1rem; }
+
+  /* Admin images — tuiles plus grandes sur tablette */
+  .admin-img-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
+}
+
+/* ============================================================
+   RESPONSIVE — TABLETTE PAYSAGE (≥ 900 px)
+   ============================================================ */
+@media (min-width: 900px) {
+
+  /* Liste élèves : 3 colonnes */
+  .eleve-list { grid-template-columns: 1fr 1fr 1fr; }
+  .eleve-item:nth-child(odd) { border-right: none; }
+  .eleve-item { border-right: 1px solid var(--divider); }
+  .eleve-item:nth-child(3n) { border-right: none; }
+
+  /* Admin : 3 colonnes */
+  .admin-list-container { grid-template-columns: 1fr 1fr 1fr; }
+
+  /* Historique : 2 colonnes (conserver — 3 serait trop compact) */
+
+  /* Cartes activités : 3 colonnes */
+  #eleve-content { grid-template-columns: 1fr 1fr 1fr; }
+
+  /* Résultats : 3 colonnes */
+  .resultats-liste { grid-template-columns: 1fr 1fr 1fr; }
+}
+
+/* ============================================================
+   RESPONSIVE — PAYSAGE TABLETTE (orientation + hauteur)
+   Optimise l'écran d'évaluation : image à gauche, mot à droite
+   ============================================================ */
+@media (orientation: landscape) and (min-width: 600px) and (min-height: 400px) {
+
+  /* Évaluation : zone image+mot en ligne */
+  .eval-zone {
+    flex-direction: row;
+    align-items: center;
+    gap: 40px;
+    padding: 12px 40px;
+  }
+
+  .eval-img-wrap {
+    flex: 1;
+    min-width: 0;
+    min-height: unset;
+    justify-content: flex-end; /* image poussée vers le centre de l'écran */
+  }
+  /*
+   * En paysage : eval-zone est en flex-row, le wrap prend ~50 % de la largeur.
+   * Overhead hauteur paysage : app-bar 64px + info-bar compact 26px
+   *                           + progress 6px + btn-bar compact 104px + padding 24px = 224px
+   * Overhead largeur : on prend la moitié de l'écran moins paddings.
+   */
+  .eval-img-wrap img {
+    --eval-img-size: min(calc(45vw - 20px), calc(100vh - 224px));
+  }
+
+  .eval-mot {
+    flex: 0 0 auto;      /* le mot garde sa taille naturelle en paysage aussi */
+    font-size: 4rem;
+    text-align: left;
+  }
+
+  /* Info bar compacte */
+  .eval-info-bar { padding: 4px 20px; font-size: 0.82rem; }
+
+  /* Boutons en ligne avec plus d'espace */
+  .eval-btn-bar { padding: 12px 40px; gap: 24px; }
+  .eval-btn     { min-height: 80px; }
+}
